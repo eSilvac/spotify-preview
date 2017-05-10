@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Spotify-Preview</title>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="https://use.fontawesome.com/fbe2e78353.js"></script>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="principal col-sm-6 col-sm-offset-3">
+				<h1 class="text-center"><i class="fa fa-spotify fa-lg" aria-hidden="true"></i> Spotify Preview</h1>
+				<form action="">
+					<input type="text" class="track-search form-control input-lg" placeholder="Busca una cancion o artista">
+				</form>
+				<div class="loading">
+					<img src="images/hourglass.gif" class="loading-img text-center" alt="...cargando" height="50" width="50" align="middle">
+				</div>
+				<table class="table-principal">
+					<tbody> 	
+					</tbody>
+				</table>
+			</div>
+		  <div class="col-sm-3">
+		  	<div class="affix extra-info">
+		  	</div>
+		  </div>
+		</div>
+	</div>
+
+	<script id="template-track" type="text/x-handlebars-template">
+		<tr class="track">
+			<td class="img">
+				<img src="{{image_url}}" alt="album-image" height="200" width="200">
+				<div class="more-info display-info text-center">
+					<span class="glyphicon glyphicon-star star" aria-hidden="true"></span>
+					<span><strong>{{rate}}/100</strong></span>
+					<span class="glyphicon glyphicon-star star" aria-hidden="true"></span>
+				</div>
+			</td>
+			<td class="info">
+				<span class="title">
+					<h2>{{name}}</h2>
+					<a href="{{spotify_url}}" class="btn btn-success boton-cancion display-info" target="blank" title="Escuchar Canción en Spotify">
+						<i class="fa fa-spotify fa-lg" aria-hidden="true"></i>
+					</a>
+				</span>
+				<span class="artist" style="cursor:pointer" data-artist="{{artist.id}}" title="Ver Artista">
+					<strong class="link-artist">{{artist.name}}
+							<i class="fa fa-user" aria-hidden="true"></i>
+					</strong>
+				</span>
+				<div class="more-info display-info">
+					{{#if inviteArtists}}
+						<span class="ul-title">Invitados </span>
+						<ul style="list-style-type: circle">
+							{{#each inviteArtists}}
+								<li>
+									<span class="iArtists artist display-info" style="cursor:pointer" data-artist="{{id}}">
+										<strong class="link-artist" title="Ver Artista">
+											{{name}}
+											<i class="fa fa-user" aria-hidden="true"></i>
+										</strong>
+									</span>
+								</li>
+							{{/each}} 
+						</ul>
+					{{/if}}
+					<span class="album" title="Ver Álbum">Álbum: 
+						<a href="{{album.external_urls.spotify}}" class="link-album" target="_blank">
+							<strong class="link-album">
+								{{album.name}}
+								<i class="glyphicon glyphicon-cd" aria-hidden="true"></i>
+							</strong>
+						</a>
+					</span>
+					<span>Duración: <strong>{{duration}}</strong> min</span>
+				</div>
+				<div class="audio">
+					<span><audio controls id="track-preview"><source src="{{preview_url}}" type=""></audio></span>
+				</div>			
+			</td>
+		</tr>
+		<hr>
+	</script>
+
+	<script id="template-artist" type="text/x-handlebars-template">
+		<div class="row">
+			<div class="col-sm-12">
+				<span class="close-artist" style="cursor:pointer">
+					<i class="fa fa-times fa-lg" aria-hidden="true"></i>
+				</span>
+				<h2 class="text-center">{{name}}</h2>
+				<h3 class="text-center">{{artists.[0].name}}</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 text-center">
+				<img class="artist-image" src="{{images.[1].url}}" alt="Álbum Image">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6 generes">
+				<span>Generos:</span>
+					<ul>
+						{{#each genres}}
+							<li><strong>{{this}}</strong></li>
+						{{/each}}
+					</ul>
+			</div>
+			<div class="col-sm-6 generes">
+				<i class="fa fa-star fa-3x star" aria-hidden="true"></i>
+				<p class="votes">{{popularity}}/100<br><strong class="popularity">{{followers.total}}</strong></p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 text-center">
+				<button type="button" class="btn btn-info"><a href="{{external_urls.spotify}}" class="artist-btn" target="_blank">Ver en Spotify</a></button>
+			</div>
+		</div>
+	</script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.min.js"></script>
+	<script src="js/app.js"></script>	
+</body>
+</html>
