@@ -72,14 +72,6 @@ $('table').on('mouseenter', 'tr', function(){
 	var conf = $(this).closest('.track')
 	conf.find('.display-info').show();
 	conf.addClass('highlight');
-	//$(this).find('#track-preview')[0].play();
-});
-
-$('table').on('mouseleave', 'tr', function(){
-	//var conf = $(this).closest('.track')
-	//conf.find('.display-info').hide();
-	//conf.removeClass('highlight');
-	//$(this).find('#track-preview')[0].pause();
 });
 
 $('table').on('click', '.artist', function(){
